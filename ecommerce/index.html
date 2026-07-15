@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-commerce Product Page — Task 02 · Saiket Internship</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  .swatch{ width:30px; height:30px; border-radius:50%; border:2px solid transparent; cursor:pointer; }
+  .swatch.active{ border-color:var(--accent); }
+  .size-opt{ padding:.5rem .9rem; border:1px solid var(--border); border-radius:2px; font-family:var(--font); font-size:.8rem; cursor:pointer; }
+  .size-opt.active{ border-color:var(--accent); color:var(--accent); }
+  .gallery-thumb{ height:64px; border-radius:2px; cursor:pointer; border:1px solid var(--border); opacity:.6; }
+  .gallery-thumb.active{ opacity:1; border-color:var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <a href="../index.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    BACK TO LOG
+  </a>
+</header>
+
+<main class="sheet-frame" style="padding-top:3rem;">
+  <p class="eyebrow" style="margin-top:1.5rem;">E-commerce Product Page</p>
+
+  <div style="display:grid; grid-template-columns:1.1fr 1fr; gap:2.5rem; margin-top:1.5rem;" id="pdp-grid">
+    <div class="reg-marks">
+      <div id="hero-image" style="height:380px; border-radius:2px; background:linear-gradient(135deg, #22405c, #16233a); display:flex; align-items:center; justify-content:center; font-family:var(--font); color:var(--muted); font-size:.8rem; border:1px solid var(--border);">
+        Asian Paints — VIEW 01
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:.6rem; margin-top:.7rem;">
+        <div class="gallery-thumb active" data-view="01" style="background:linear-gradient(135deg,#22405c,#16233a);"></div>
+        <div class="gallery-thumb" data-view="02" style="background:linear-gradient(135deg,#2c4f36,#16233a);"></div>
+        <div class="gallery-thumb" data-view="03" style="background:linear-gradient(135deg,#5a3a22,#16233a);"></div>
+        <div class="gallery-thumb" data-view="04" style="background:linear-gradient(135deg,#3a2f5a,#16233a);"></div>
+      </div>
+    </div>
+    <div>
+      <span class="corner-tag"> Color Preview</span>
+      <h1 style="font-size:1.9rem; margin-top:.5rem;">Royal Interior Emulsion</h1>
+      <p id="price" style="font-family:var(--font); font-size:1.4rem; color:var(--accent); margin-top:.6rem;">₹499</p>
+      <p style="color:var(--text-soft); font-size:.93rem; margin-top:.8rem; max-width:420px;">
+        Finish: Matte                
+│ Coverage: 140 sq.ft/L        
+│ Brand: Asian Paints 
+      </p>
+
+      <div style="margin-top:1.6rem;">
+        <p class="field label" style="font-family:var(--font); font-size:.72rem; letter-spacing:.06em; color:var(--muted); text-transform:uppercase;">Colour — <span id="color-label">Slate</span></p>
+        <div style="display:flex; gap:.7rem; margin-top:.5rem;">
+          <div class="swatch active" data-color="Slate" style="background:#22405c;"></div>
+          <div class="swatch" data-color="Olive" style="background:#2c4f36;"></div>
+          <div class="swatch" data-color="Rust" style="background:#5a3a22;"></div>
+          <div class="swatch" data-color="Plum" style="background:#3a2f5a;"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:1.4rem;">
+        <p style="font-family:var(--font); font-size:.72rem; letter-spacing:.06em; color:var(--muted); text-transform:uppercase;">Size</p>
+        <div style="display:flex; gap:.6rem; margin-top:.5rem;">
+          <div class="size-opt" data-size="S">1L</div>
+          <div class="size-opt active" data-size="M">5L</div>
+          <div class="size-opt" data-size="L">10L</div>
+          <div class="size-opt" data-size="XL">20L</div>
+        </div>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:1rem; margin-top:1.8rem;">
+        <div style="display:flex; align-items:center; border:1px solid var(--border); border-radius:2px;">
+          <button id="qty-minus" class="btn" style="border:none; padding:.6rem .9rem;">−</button>
+          <span id="qty" style="font-family:var(--font); padding:0 .8rem;">1</span>
+          <button id="qty-plus" class="btn" style="border:none; padding:.6rem .9rem;">+</button>
+        </div>
+        <button id="add-to-cart" class="btn solid" style="flex:1;">Add to cart</button>
+      </div>
+      <p id="add-msg" style="font-family:var(--font); font-size:.75rem; color:var(--ok); margin-top:.8rem; height:1rem;"></p>
+    </div>
+  </div>
+</main>
+
+<footer class="sitefoot">
+  <span> E-COMMERCE PRODUCT PAGE</span>
+  <span>INTERNSHIP-TASK</span>
+</footer>
+
+<script>
+  const colorLabel = document.getElementById("color-label");
+  const heroImage = document.getElementById("hero-image");
+  const priceEl = document.getElementById("price");
+
+  document.querySelectorAll(".swatch").forEach(sw => {
+    sw.addEventListener("click", () => {
+      document.querySelectorAll(".swatch").forEach(s => s.classList.remove("active"));
+      sw.classList.add("active");
+      colorLabel.textContent = sw.dataset.color;
+    });
+  });
+
+  document.querySelectorAll(".size-opt").forEach(opt => {
+    opt.addEventListener("click", () => {
+      document.querySelectorAll(".size-opt").forEach(o => o.classList.remove("active"));
+      opt.classList.add("active");
+    });
+  });
+
+  document.querySelectorAll(".gallery-thumb").forEach(thumb => {
+    thumb.addEventListener("click", () => {
+      document.querySelectorAll(".gallery-thumb").forEach(t => t.classList.remove("active"));
+      thumb.classList.add("active");
+      heroImage.textContent = `Asian Paints — VIEW ${thumb.dataset.view}`;
+      heroImage.style.background = getComputedStyle(thumb).backgroundImage;
+    });
+  });
+
+  let qty = 1;
+  const qtyEl = document.getElementById("qty");
+  document.getElementById("qty-minus").addEventListener("click", () => {
+    qty = Math.max(1, qty - 1);
+    qtyEl.textContent = qty;
+  });
+  document.getElementById("qty-plus").addEventListener("click", () => {
+    qty = Math.min(9, qty + 1);
+    qtyEl.textContent = qty;
+  });
+
+  let cartCount = 0;
+  const cartCountEl = document.getElementById("cart-count");
+  const addMsg = document.getElementById("add-msg");
+  document.getElementById("add-to-cart").addEventListener("click", () => {
+    cartCount += qty;
+    cartCountEl.textContent = cartCount;
+    addMsg.textContent = `Added ${qty} item(s) to cart.`;
+    setTimeout(() => addMsg.textContent = "", 2200);
+  });
+</script>
+</body>
+</html>

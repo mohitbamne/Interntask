@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Web App — Task 06 · Saiket Internship</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  .todo-row{ display:flex; align-items:center; gap:.8rem; padding:.8rem .9rem; border:1px solid var(--border); border-radius:2px; }
+  .todo-row.done .todo-text{ text-decoration:line-through; color:var(--muted); }
+  .todo-row .todo-text{ flex:1; font-size:.95rem; }
+  .icon-btn{ background:none; border:none; color:var(--muted); cursor:pointer; font-family:var(--font); font-size:.85rem; padding:.3rem; }
+  .icon-btn:hover{ color:var(--accent); }
+  .console-filters .filter-pill{ font-family:var(--font); font-size:.72rem; padding:.4rem .8rem; border:1px solid var(--border); border-radius:20px; cursor:pointer; color:var(--text-soft); }
+  .console-filters .filter-pill.active{ border-color:var(--accent); color:var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <a href="../index.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    BACK TO LOG
+  </a>
+</header>
+
+<main class="sheet-frame" style="padding-top:3rem; max-width:640px;">
+  <p class="eyebrow" style="margin-top:1rem;">Interactive Web App</p>
+  <h1 style="font-size:clamp(1.7rem,4vw,2.4rem); margin-top:1rem;">Task console</h1>
+  <p style="color:var(--text-soft); margin-top:.8rem;">A small state-driven app — add, complete and remove tasks, filter the list, all without a page reload.</p>
+
+  <div class="panel reg-marks" style="padding:1.8rem clamp(1.25rem,4vw,2.2rem); margin-top:1.8rem;">
+
+    <form id="add-form" style="display:flex; gap:.7rem;">
+      <input type="text" id="new-task" placeholder="Add a task…" autocomplete="off"
+        style="flex:1; background:var(--bg); border:1px solid var(--border); border-radius:2px; color:var(--text); padding:.7rem .9rem; font-family:var(--font); font-size:.95rem; outline:none;">
+      <button type="submit" class="btn solid">Add</button>
+    </form>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1.4rem; flex-wrap:wrap; gap:.8rem;">
+      <div class="console-filters" style="display:flex; gap:.5rem;">
+        <div class="filter-pill active" data-filter="all">All</div>
+        <div class="filter-pill" data-filter="active">Active</div>
+        <div class="filter-pill" data-filter="done">Done</div>
+      </div>
+      <span id="counter" class="corner-tag">0 tasks · 0 done</span>
+    </div>
+
+    <div id="todo-list" style="display:flex; flex-direction:column; gap:.6rem; margin-top:1.2rem;"></div>
+    <p id="empty-state" class="corner-tag" style="margin-top:1rem; display:none;">Nothing here yet — add your first task above.</p>
+  </div>
+</main>
+
+<footer class="sitefoot">
+  <span>TASK 06 · INTERACTIVE WEB APP</span>
+  <span>SAIKET-INTERNSHIP</span>
+</footer>
+
+<script>
+  let tasks = [
+    { id: 1, text: "Review the navigation dropdown states", done: true },
+    { id: 2, text: "Add validation error copy to the form task", done: false },
+    { id: 3, text: "Write blog post filter logic", done: false }
+  ];
+  let nextId = 4;
+  let filter = "all";
+
+  const list = document.getElementById("todo-list");
+  const counter = document.getElementById("counter");
+  const emptyState = document.getElementById("empty-state");
+  const form = document.getElementById("add-form");
+  const input = document.getElementById("new-task");
+
+  function render(){
+    const visible = tasks.filter(t =>
+      filter === "all" ? true : filter === "done" ? t.done : !t.done
+    );
+
+    list.innerHTML = "";
+    visible.forEach(t => {
+      const row = document.createElement("div");
+      row.className = "todo-row" + (t.done ? " done" : "");
+      row.innerHTML = `
+        <input type="checkbox" ${t.done ? "checked" : ""} data-id="${t.id}" class="toggle-check">
+        <span class="todo-text">${t.text}</span>
+        <button class="icon-btn delete-btn" data-id="${t.id}" aria-label="Delete task">✕</button>
+      `;
+      list.appendChild(row);
+    });
+
+    emptyState.style.display = visible.length === 0 ? "block" : "none";
+
+    const doneCount = tasks.filter(t => t.done).length;
+    counter.textContent = `${tasks.length} task${tasks.length !== 1 ? "s" : ""} · ${doneCount} done`;
+
+    list.querySelectorAll(".toggle-check").forEach(cb => {
+      cb.addEventListener("change", () => {
+        const t = tasks.find(t => t.id === Number(cb.dataset.id));
+        t.done = cb.checked;
+        render();
+      });
+    });
+    list.querySelectorAll(".delete-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        tasks = tasks.filter(t => t.id !== Number(btn.dataset.id));
+        render();
+      });
+    });
+  }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const value = input.value.trim();
+    if (!value) return;
+    tasks.push({ id: nextId++, text: value, done: false });
+    input.value = "";
+    render();
+  });
+
+  document.querySelectorAll(".console-filters .filter-pill").forEach(pill => {
+    pill.addEventListener("click", () => {
+      document.querySelectorAll(".console-filters .filter-pill").forEach(p => p.classList.remove("active"));
+      pill.classList.add("active");
+      filter = pill.dataset.filter;
+      render();
+    });
+  });
+
+  render();
+</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#ffffff;
+  --bg-soft:#f7f8fa;
+  --card:#ffffff;
+  --border:#e3e6eb;
+  --text:#222831;
+  --text-soft:#5b6472;
+  --muted:#8a93a1;
+  --accent:#3457d5;      
+  --accent-soft:#eef1fd;
+  --accent-dark:#2743ad;
+  --ok:#1e8e5a;
+  --error:#d0453e;
+  --radius:8px;
+  --font:'Poppins', Arial, sans-serif;
+}
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font);
+  line-height:1.6;
+}
+
+a{ color:inherit; text-decoration:none; }
+::selection{ background:var(--accent); color:#fff; }
+
+.masthead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  padding:1rem clamp(1.25rem, 5vw, 3rem);
+  border-bottom:1px solid var(--border);
+  background:#ffffff;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+.masthead .brand{
+  font-weight:600;
+  font-size:1rem;
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+}
+.masthead .brand .dot{
+  width:8px; height:8px; border-radius:50%;
+  background:var(--accent);
+}
+.masthead nav a{
+  font-size:.9rem;
+  color:var(--text-soft);
+  margin-left:1.4rem;
+}
+.masthead nav a:hover{ color:var(--accent); }
+
+.back-link{
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  font-size:.88rem;
+  color:var(--text-soft);
+}
+.back-link:hover{ color:var(--accent); }
+.back-link svg{ width:14px; height:14px; }
+
+.sheet-frame{
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 clamp(1.25rem, 5vw, 3rem) 4.5rem;
+}
+
+.eyebrow{
+  font-size:.82rem;
+  font-weight:600;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+
+h1,h2,h3{ font-family:var(--font); font-weight:700; margin:0; color:var(--text); }
+
+.corner-tag{
+  font-size:.78rem;
+  color:var(--muted);
+}
+
+.reg-marks{ position:relative; } 
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  font-family:var(--font);
+  font-size:.92rem;
+  font-weight:500;
+  padding:.7rem 1.3rem;
+  border-radius:var(--radius);
+  border:1.5px solid var(--accent);
+  color:var(--accent);
+  background:transparent;
+  cursor:pointer;
+  transition:background .15s ease, color .15s ease;
+}
+.btn:hover{ background:var(--accent-soft); }
+.btn:active{ transform:translateY(1px); }
+.btn.solid{ background:var(--accent); color:#fff; }
+.btn.solid:hover{ background:var(--accent-dark); }
+.btn.muted{ border-color:var(--border); color:var(--text-soft); }
+.btn.muted:hover{ background:var(--bg-soft); color:var(--text); }
+
+.panel{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+}
+
+.task-card{
+  border:1px solid var(--border);
+  background:var(--card);
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+.task-card:hover{
+  border-color:var(--accent) !important;
+  box-shadow:0 6px 18px rgba(52,87,213,0.12);
+}
+
+.field{ display:flex; flex-direction:column; gap:.35rem; margin-bottom:1.1rem; }
+.field label{
+  font-size:.82rem;
+  font-weight:600;
+  color:var(--text-soft);
+}
+.field input, .field textarea, .field select{
+  background:#fff;
+  border:1.5px solid var(--border);
+  border-radius:var(--radius);
+  color:var(--text);
+  font-family:var(--font);
+  font-size:.95rem;
+  padding:.65rem .8rem;
+  outline:none;
+  transition:border-color .15s ease;
+}
+.field input:focus, .field textarea:focus, .field select:focus{
+  border-color:var(--accent);
+}
+.field .hint{ font-size:.78rem; color:var(--muted); }
+.field .error{ font-size:.8rem; color:var(--error); display:none; }
+.field.invalid input, .field.invalid textarea{ border-color:var(--error); }
+.field.invalid .error{ display:block; }
+
+footer.sitefoot{
+  border-top:1px solid var(--border);
+  padding:1.4rem clamp(1.25rem, 5vw, 3rem);
+  font-size:.82rem;
+  color:var(--muted);
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:.5rem;
+}
+
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:2px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+}
+
+@media (max-width:640px){
+  .masthead nav{ display:none; }
+}
+
+@media (max-width:900px){
+  main section[style*="grid-template-columns:1.2fr"]{
+    grid-template-columns:1fr !important;
+  }
+}

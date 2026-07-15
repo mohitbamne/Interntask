@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blogging Platform — Task 05 · Saiket Internship</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  .filter-pill{ font-family:var(--font); font-size:.75rem; padding:.5rem 1rem; border:1px solid var(--border); border-radius:20px; cursor:pointer; color:var(--text-soft); }
+  .filter-pill.active{ border-color:var(--accent); color:var(--accent); }
+  .post-card{ display:none; }
+  .post-card.show{ display:flex; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <a href="../index.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    BACK TO LOG
+  </a>
+</header>
+
+<main class="sheet-frame" style="padding-top:3rem;">
+  <p class="eyebrow" style="margin-top:1rem;">Blogging Platform</p>
+  <h1 style="font-size:clamp(1.7rem,4vw,2.6rem); margin-top:1rem; max-width:600px;">Field notes from the internship</h1>
+
+  <div style="display:flex; gap:.6rem; margin-top:1.8rem; flex-wrap:wrap;" id="filters">
+    <div class="filter-pill active" data-cat="all">All</div>
+    <div class="filter-pill" data-cat="css">CSS</div>
+    <div class="filter-pill" data-cat="js">JavaScript</div>
+    <div class="filter-pill" data-cat="career">Career</div>
+  </div>
+
+  <div id="posts" style="display:flex; flex-direction:column; gap:1.1rem; margin-top:1.6rem;">
+
+    <article class="post-card show reg-marks panel" data-cat="css" style="padding:1.5rem; gap:.8rem; flex-direction:column;">
+      <div style="display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+        <span class="corner-tag">CSS · 6 MIN READ</span>
+        <span class="corner-tag">JUL 02, 2026</span>
+      </div>
+      <h2 style="font-size:1.25rem;">Grid vs. Flexbox: picking the right tool per layout</h2>
+      <p style="color:var(--text-soft); font-size:.92rem; margin:0;">Notes on when a two-axis grid earns its complexity over a simpler flex row.</p>
+      <div style="display:flex; gap:.5rem;">
+        <span class="corner-tag">#layout</span><span class="corner-tag">#css-grid</span>
+      </div>
+    </article>
+
+    <article class="post-card show reg-marks panel" data-cat="js" style="padding:1.5rem; gap:.8rem; flex-direction:column;">
+      <div style="display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+        <span class="corner-tag">JAVASCRIPT · 5 MIN READ</span>
+        <span class="corner-tag">JUN 24, 2026</span>
+      </div>
+      <h2 style="font-size:1.25rem;">Form validation without a library</h2>
+      <p style="color:var(--text-soft); font-size:.92rem; margin:0;">Building the signup form's live validation with plain event listeners.</p>
+      <div style="display:flex; gap:.5rem;">
+        <span class="corner-tag">#dom</span><span class="corner-tag">#forms</span>
+      </div>
+    </article>
+
+    <article class="post-card show reg-marks panel" data-cat="career" style="padding:1.5rem; gap:.8rem; flex-direction:column;">
+      <div style="display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+        <span class="corner-tag">CAREER · 4 MIN READ</span>
+        <span class="corner-tag">JUN 10, 2026</span>
+      </div>
+      <h2 style="font-size:1.25rem;">What week one of a front-end internship actually looks like</h2>
+      <p style="color:var(--text-soft); font-size:.92rem; margin:0;">Setup, code review habits, and the small tasks that teach the most.</p>
+      <div style="display:flex; gap:.5rem;">
+        <span class="corner-tag">#internship</span><span class="corner-tag">#notes</span>
+      </div>
+    </article>
+
+    <article class="post-card show reg-marks panel" data-cat="css" style="padding:1.5rem; gap:.8rem; flex-direction:column;">
+      <div style="display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+        <span class="corner-tag">CSS · 3 MIN READ</span>
+        <span class="corner-tag">MAY 29, 2026</span>
+      </div>
+      <h2 style="font-size:1.25rem;">A design token system in plain CSS variables</h2>
+      <p style="color:var(--text-soft); font-size:.92rem; margin:0;">Keeping one shared palette and type scale across six separate task pages.</p>
+      <div style="display:flex; gap:.5rem;">
+        <span class="corner-tag">#design-system</span><span class="corner-tag">#variables</span>
+      </div>
+    </article>
+
+  </div>
+</main>
+
+<footer class="sitefoot">
+  <span>TASK 05 · BLOGGING PLATFORM</span>
+  <span>INTERNSHIP-TASK</span>
+</footer>
+
+<script>
+  const pills = document.querySelectorAll(".filter-pill");
+  const posts = document.querySelectorAll(".post-card");
+  pills.forEach(pill => {
+    pill.addEventListener("click", () => {
+      pills.forEach(p => p.classList.remove("active"));
+      pill.classList.add("active");
+      const cat = pill.dataset.cat;
+      posts.forEach(post => {
+        post.classList.toggle("show", cat === "all" || post.dataset.cat === cat);
+      });
+    });
+  });
+</script>
+</body>
+</html>

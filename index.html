@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saiket Systems — Internship Log</title>
+<meta name="description" content="Web development internship task log — six exercises from portfolio layout to interactive app.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="brand"><span class="dot"></span>TASK PAGE <span style="color:var(--muted); font-weight:400;"> </span></div>
+  <nav>
+    <a href="#tasks">Tasks</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<main>
+  <section style="max-width:800px; margin:0 auto; padding:4.5rem clamp(1.25rem, 5vw, 3rem) 3rem; text-align:center;">
+    <p class="eyebrow">Web Development Internship</p>
+    <h1 style="font-size:clamp(1.9rem, 5vw, 2.8rem); line-height:1.2; margin-top:1rem;">
+      Six tasks completed during my internship at Saiket Systems
+    </h1>
+    <p style="color:var(--text-soft); font-size:1.02rem; margin-top:1.1rem;">
+      A portfolio site, an e-commerce product page, a navigation menu, a form, a blog layout,
+      and an interactive app — each one built as a separate task and linked below.
+    </p>
+    <div style="display:flex; gap:1rem; margin-top:1.8rem; justify-content:center; flex-wrap:wrap;">
+      <a href="#tasks" class="btn solid">View all tasks</a>
+      <a href="#about" class="btn muted">About this project</a>
+    </div>
+  </section>
+  <section id="tasks" class="sheet-frame">
+    <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:1.4rem; flex-wrap:wrap; gap:.6rem;">
+      <p class="eyebrow" style="margin:0;">Task List</p>
+      <p class="corner-tag">6 tasks</p>
+    </div>
+
+    <div id="task-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.2rem;">
+    </div>
+  </section>
+  <section id="about" class="sheet-frame">
+    <div class="panel" style="padding:2rem clamp(1.25rem, 4vw, 2.6rem);">
+      <p class="eyebrow">About</p>
+      <h2 style="font-size:1.4rem; margin-top:.8rem;">Why each task has its own folder</h2>
+      <p style="color:var(--text-soft); max-width:640px; margin-top:.8rem;">
+        Each task covers a different front-end skill — layout, UI components, navigation,
+        form validation, content structure, and JavaScript. Keeping each one in its own folder
+        makes the project easy to review, task by task.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="sitefoot">
+  <span>INTERNSHIP-TASK</span>
+  <span>Built with HTML, CSS &amp; JavaScript</span>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>

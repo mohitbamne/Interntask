@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML Form — Task 04 · Saiket Internship</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="masthead">
+  <a href="../index.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    BACK TO LOG
+  </a>
+</header>
+
+<main class="sheet-frame" style="padding-top:3rem; max-width:620px;">
+  <p class="eyebrow" style="margin-top:1rem;">Form</p>
+  <h1 style="font-size:clamp(1.7rem,4vw,2.4rem); margin-top:1rem;">Create your account</h1>
+  <p style="color:var(--text-soft); margin-top:.8rem;">Every field validates as you type or on blur — try leaving one empty or mismatching the passwords.</p>
+
+  <form id="signup-form" class="panel reg-marks" style="padding:2rem clamp(1.25rem,4vw,2.4rem); margin-top:2rem;" novalidate>
+
+    <div class="field" id="field-name">
+      <label for="name">Full name</label>
+      <input type="text" id="name" name="name" placeholder="" autocomplete="name">
+      <span class="error">Enter your full name (at least 2 characters).</span>
+    </div>
+
+    <div class="field" id="field-email">
+      <label for="email">Email address</label>
+      <input type="email" id="email" name="email" placeholder="example@gmail.com" autocomplete="email">
+      <span class="error">Enter a valid email address.</span>
+    </div>
+
+    <div class="field" id="field-password">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="At least 8 characters" autocomplete="new-password">
+      <span class="hint">Minimum 8 characters, with one number.</span>
+      <span class="error">Password must be 8+ characters and include a number.</span>
+    </div>
+
+    <div class="field" id="field-confirm">
+      <label for="confirm">Confirm password</label>
+      <input type="password" id="confirm" name="confirm" placeholder="Repeat password" autocomplete="new-password">
+      <span class="error">Passwords do not match.</span>
+    </div>
+
+    <div class="field" id="field-role">
+      <label for="role">I am joining as</label>
+      <select id="role" name="role">
+        <option value="">Select one</option>
+        <option value="intern">Intern</option>
+        <option value="mentor">Mentor</option>
+        <option value="reviewer">Reviewer</option>
+      </select>
+      <span class="error">Select a role.</span>
+    </div>
+
+    <div class="field" id="field-terms">
+      <label style="display:flex; align-items:center; gap:.6rem; text-transform:none; font-family:var(--font); font-size:.9rem; color:var(--text);">
+        <input type="checkbox" id="terms" name="terms" style="width:auto;">
+        I agree to the internship terms and code of conduct
+      </label>
+      <span class="error">You must accept the terms to continue.</span>
+    </div>
+
+    <button type="submit" class="btn solid" style="width:100%; justify-content:center; padding:.85rem;">Create account</button>
+    <p id="form-success" style="font-family:var(--font); font-size:.8rem; color:var(--ok); margin-top:1rem; display:none;">Account details look good — form validated successfully.</p>
+  </form>
+</main>
+
+<footer class="sitefoot">
+  <span>TASK 04 · HTML FORM</span>
+  <span>SAIKET-INTERNSHIP</span>
+</footer>
+
+<script>
+  const form = document.getElementById("signup-form");
+  const successMsg = document.getElementById("form-success");
+
+  const validators = {
+    name: v => v.trim().length >= 2,
+    email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
+    password: v => /^(?=.*\d).{8,}$/.test(v),
+    confirm: v => v === document.getElementById("password").value && v.length > 0,
+    role: v => v !== "",
+    terms: () => document.getElementById("terms").checked
+  };
+
+  function validateField(name){
+    const fieldWrap = document.getElementById("field-" + name);
+    const input = document.getElementById(name);
+    const value = input.type === "checkbox" ? input.checked : input.value;
+    const valid = validators[name](value);
+    fieldWrap.classList.toggle("invalid", !valid);
+    return valid;
+  }
+
+  ["name","email","password","role"].forEach(name => {
+    document.getElementById(name).addEventListener("input", () => validateField(name));
+    document.getElementById(name).addEventListener("blur", () => validateField(name));
+  });
+  document.getElementById("confirm").addEventListener("input", () => validateField("confirm"));
+  document.getElementById("terms").addEventListener("change", () => validateField("terms"));
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const fields = ["name","email","password","confirm","role","terms"];
+    const allValid = fields.map(validateField).every(Boolean);
+    successMsg.style.display = allValid ? "block" : "none";
+    if (!allValid){
+      const firstInvalid = fields.find(f => !validators[f](
+        document.getElementById(f).type === "checkbox" ? document.getElementById(f).checked : document.getElementById(f).value
+      ));
+      document.getElementById(firstInvalid).focus();
+    }
+  });
+</script>
+</body>
+</html>
